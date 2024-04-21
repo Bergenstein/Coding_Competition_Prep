@@ -1,0 +1,26 @@
+1. new line "\n" works faster than std::endl; because the latter always causes a flush operation 
+
+2. The following line at the beginning of the code makes input/output more efficient as input/output is a bit of a bottleneck on the program
+
+std::ios::sync_with_stdio(0);
+std::cin.tie(0);
+
+3. if the amount of data is unknown this look can be helpful. This loop reads elements from the input one after another until there is no more data left in the input. 
+
+while(std::cin) {
+    //code 
+}
+
+4. the best way to deal with files that are used for input and output is to write the code as usual using standard stream, but adding the following lines to the beginning:
+
+std::freopen("input.txt", "r", stdin);
+std::freopen("output.txt", "w", stdout);
+
+5. If needing to read a whole line from the input, including spaces possibly, use getline:
+
+std::string str;
+std::getline(std::cin, str); // into cin from str 
+
+6. 
+
+

@@ -1,0 +1,28 @@
+1. (-2)^31 <int32< 2^31 - 1 (-2 * 10^9 .. 2 * 10^9)
+2. int64 = long long:  (-2)^63 <long long < 2^63 - 1 (-9 * 10^18 .. 9 * 10^18)
+
+3. An important property of the remainder is that in addition, subtraction and multiplication, the remainder can be taken before the operation:
+
+(a + b) mod m = (a mod m + b mod m) mod m 
+
+11 mod 3 = 2 => (7+4) mod 3 = (7 mod 3 + 4 mod 3) mod 3 = (1+1) mod 3 = 2
+
+(a - b) mod m = (a mod m - b mod m) mod m 
+(a * b) mod m = (a mod m * b mod m) mod m 
+
+That way, we can take remainder after every operation and the numbers will never become too large. Example in CC file om Factorial. 
+
+Long double is more accurate than double. Don't confuse long double with long long. long long is for double precision intergers but long double is for 80-bit floats. 
+
+It is risky to compare floating point numbers with == operator, because there may be precision errors even if they are actually equal. So, it is best to use an epsilon difference 
+
+if (abs (x-y)< 1e-10) { //x and y are equal}
+
+Use typedef to shorten names. For example:
+
+typedef vector<int> vi; // shoter form for vector<int> is vi from now on 
+
+typedef pair<int, int> pi; // shorter form for pair<int, int> is pi from now on. 
+
+
+
