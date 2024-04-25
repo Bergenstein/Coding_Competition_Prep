@@ -36,4 +36,22 @@ signed int challenges::max_subarr_c(std::vector<int> vect)
     return best;
 }
 
+std::vector<int> challenges::sort_arr(std::vector<int> vect)
+{
+    std::sort(vect.begin(), vect.end());
+    return vect;
+}
 
+void challenges::sort_arr_inplace(std::vector<int>& vect) {
+    std::sort(vect.begin(), vect.end());
+}
+
+void challenges::bubble_sort(std::vector<int>& vect) 
+{
+    int size = vect.size();
+    for (int i {}; i< size; ++i){
+        for (int j{}; j<size-1; ++j){
+            if(vect[j]> vect[j+1]) std::swap(vect[j], vect[j+1]);
+        }
+    }
+}
