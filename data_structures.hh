@@ -3,14 +3,18 @@
 #include <iterator>
 #include <limits>
 #include <stack>
+#include <deque>
+#include <queue>
 #include <string>
 #include <vector>
 #include <utility>
 
 class DataStructure {
     public:
-        std::stack<int> execute(std::vector<std::string> program);
+        std::stack<int> stack_exec(std::vector<std::string> program);
 
+        std::deque<int> process_queue(std::vector<std::string> program_instructions);
+        
         /** Ignores the rest of the current line in the input stream.
         * @throws None
         */

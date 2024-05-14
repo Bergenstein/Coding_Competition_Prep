@@ -1,5 +1,6 @@
 #include "challenges.h"
 #include <iostream>
+#include "data_structures.hh"
 
 int main(void)
 {
@@ -29,8 +30,6 @@ int main(void)
     
     for (int i {}; i< my_vec.size(); ++i)
         printf("%d\t", my_vec_b[i]);
-    
-
 
     return 0;
 }

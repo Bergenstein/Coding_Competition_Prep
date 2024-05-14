@@ -3,7 +3,7 @@
 
 
 
-std::stack<int> DataStructure::execute(std::vector<std::string> program)
+std::stack<int> DataStructure::stack_exec(std::vector<std::string> program)
 {
     //initialize the stack
     std::stack<int> stack;
@@ -28,6 +28,24 @@ std::stack<int> DataStructure::execute(std::vector<std::string> program)
         }
     }
     return stack;
+}
+
+std::deque<int> DataStructure::process_queue(std::vector<std::string> program_instructions){
+    std::deque<int> queue;
+    for(std::string& s : program_instructions){
+        if (s == "peak" && !queue.empty())
+            std::cout<<queue.front()<<std::endl;
+        else if (s == "pop" && queue.empty())
+            throw std::exception{};
+        else if (s == "pop" && !queue.empty())
+            queue.pop_front();
+        else if (s.substr(0, 5) == "push "){
+            int data = std::stoi(s.substr(5));
+            queue.push_back(data);
+        }
+        else throw std::exception{}; 
+    }
+    return queue;
 }
 
 void DataStructure::ignore_line(){
