@@ -2,6 +2,50 @@
 #include <iostream>
 #include <cmath>
 
+#include <algorithm> // for std::swap
+
+/**
+ * Partitions the array based on a selected pivot element midpoint for better
+ * efficiency, higher likelihood of n log n.
+ *
+ * @param arr the vector to be partitioned
+ * @param low the lower index of the array
+ * @param high the higher index of the array
+ *
+ * @return the index where the pivot element is placed after partitioning
+ *
+ * @throws None
+ */
+int partition(std::vector<int>& arr, int low, int high) {
+    int pivotIndex = low + (high - low) / 2; // Middle element as pivot
+    int pivotValue = arr[pivotIndex];
+    std::swap(arr[pivotIndex], arr[high]); // Move pivot to end
+    int storeIndex = low;
+
+    for (int i = low; i < high; i++) {
+        if (arr[i] < pivotValue) {
+            std::swap(arr[i], arr[storeIndex]);
+            storeIndex++;
+        }
+    }
+    std::swap(arr[storeIndex], arr[high]); // Move pivot to its final place
+    return storeIndex;
+}
+
+void quickSort(std::vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int p = partition(arr, low, high);
+        quickSort(arr, low, p - 1); // Recursively sort elements before partition
+        quickSort(arr, p + 1, high); // Recursively sort elements after partition
+    }
+}
+
+// Public function to start quicksort on the entire vector
+std::vector<int> qsort(std::vector<int>& unsorted_list) {
+    quickSort(unsorted_list, 0, unsorted_list.size() - 1);
+    return unsorted_list;
+}
+
 std::vector<int> insertion_sort(std::vector<int> arr){
     for (int i{}; i< arr.size(); ++i){
         int idx = i;
@@ -94,30 +138,104 @@ std::vector<int> merge_sort(std::vector<int> vec)
     return merged_vec;
 
 }
+
+void quick_sort_inorder(std::vector<int> vec, int start, int end)
+    {
+        //base case 
+        int size = vec.size();
+        if (size <= 1) return;
+        if (start - end <= 1) return;
+
+        int pivot = vec[end-1];
+        int left_ptr {start};
+        int right_ptr{end - 1};
+
+        while(left_ptr < right_ptr){
+            while(vec[left_ptr] <= pivot){
+                left_ptr++;
+            }
+            while(vec[right_ptr >= pivot]){
+                right_ptr --;
+            }
+            if(left_ptr == right_ptr) break; 
+            
+            int temp = vec[left_ptr];
+            vec[left_ptr] = vec[right_ptr];
+            vec[right_ptr] = temp;  
+
+        }
+        int temp = pivot; 
+        pivot = vec[left_ptr]; 
+        vec[left_ptr] = temp;
+
+        //recursion
+        quick_sort_inorder(vec, start, left_ptr);
+        quick_sort_inorder(vec, left_ptr+1, end);
+        //pivot -> temp; left -> pivot; temp -> left 
+    }
+
+    std::vector<int> quick_sort(std::vector<int> vec){
+        quick_sort_inorder(vec, 0, vec.size());
+        return vec;
+    }
+
 // j -> temp ; j_p1 -> j ; temp -> j_p1
 
 int main(void)
 {
-    std::vector<int> arr{2,5,3,1,0};
+    std::vector<int> arr{2, 16, 5, 9, 1, 3, 1, 0, 7};
     
+     std::cout<<"\n"<<std::endl;
+    std::cout<<"SELECTION SORT RESULTS: "<<std::endl;
+
     std::vector<int> res = insertion_sort(arr);
     for (int i{}; i< res.size(); ++i){
-        std::cout<<res.at(i)<<std::endl;
+        std::cout<<res.at(i)<<" ";
     }
+
+     std::cout<<"\n"<<std::endl;
+
+    std::cout<<"SELECTION SORT RESULTS: "<<std::endl;
 
     std::vector<int> res_2 = selection_sort(arr);
     for (int i{}; i< res_2.size(); ++i){
-        std::cout<<res_2.at(i)<<std::endl;
+        std::cout<<res_2.at(i)<<" ";
     }
+     std::cout<<"\n"<<std::endl;
+
+    std::cout<<"BUBBLE SORT RESULTS: "<<std::endl;
 
     std::vector<int> res_bubble = bubble_sort(arr);
     for (int i{}; i < res_bubble.size(); ++i){
-        std::cout<<res_bubble[i]<<"\t";
+        std::cout<<res_bubble[i]<<" ";
     }
+    
+     std::cout<<"\n"<<std::endl;
+
+    std::cout<<"MERGE SORT RESULTS: "<<std::endl;
 
     std::vector<int> res_mergesort = merge_sort(arr);
     for (int i{}; i < res_mergesort.size(); ++i){
         std::cout<<res_mergesort[i]<<" ";
     }
+
+    std::cout<<"\n"<<std::endl;
+    std::cout<<"QUICK SORT RESULTS: "<<std::endl;
+
+    std::vector<int> res_quicksort=quick_sort(arr);
+    for (int i{}; i < res_quicksort.size(); ++i){
+        std::cout<<res_quicksort[i]<<" ";
+    }
+
+    std::cout<<"\n"<<std::endl;
+    std::cout<<"QSORT RESULTS: "<<std::endl;
+    
+    std::vector<int> res_qsort=qsort(arr);
+    for (int i{}; i < res_qsort.size(); ++i){
+        std::cout<<res_qsort[i]<<" ";
+    }
+
+
     return 0;
 }
+

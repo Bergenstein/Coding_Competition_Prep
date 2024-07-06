@@ -27,3 +27,4 @@ def queue(program: List [str]) -> List[int]:
         else:
             data = int(instruction[5:])
             queue.append(data)
+
