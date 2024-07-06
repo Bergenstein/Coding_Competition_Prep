@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 std::vector<int> insertion_sort(std::vector<int> arr){
     for (int i{}; i< arr.size(); ++i){
@@ -50,6 +51,49 @@ std::vector<int> bubble_sort(std::vector<int> &vec)
     return vec;
 }
 
+std::vector<int> merge_sort(std::vector<int> vec)
+{
+    std::vector<int> merged_vec{};
+    int n = vec.size();
+    //1. base case: 
+    if (n <= 1) return vec; 
+
+    //2. midpoint 
+    int mid = floor(n/2);
+
+    //3. make resursively sorting calls. The sorting step 
+    std::vector<int> left_sub = merge_sort(std::vector<int>(vec.begin(), 
+                                        vec.begin()+mid));
+    std::vector<int> right_sub = merge_sort(std::vector<int> 
+                                        (vec.begin()+mid, vec.end()));
+
+    //4. The merging step:
+
+    int right{}, left{}; //double pointers
+    
+    while(right < n - mid || left < mid){ // the pointers haven't exceeded the subarrs
+        if(right == n-mid) { // empty subarr. So, just push back the merged left
+            merged_vec.push_back(left_sub.at(left));
+            left++;
+        }
+        else if (left == mid) { // empty left 
+            //call merge sort on the right subarr
+            merged_vec.push_back(right_sub.at(right));
+            right++;
+        }
+        else if (right_sub[right] <= left_sub[left]) {//right elems are smaller.
+            merged_vec.push_back(right_sub[right]);
+            right++;
+        }
+        else if (right_sub[right] > left_sub[left]) {//left elems are smaller.
+            merged_vec.push_back(left_sub.at(left));
+            left++;
+        }
+    } 
+
+    return merged_vec;
+
+}
 // j -> temp ; j_p1 -> j ; temp -> j_p1
 
 int main(void)
@@ -69,6 +113,11 @@ int main(void)
     std::vector<int> res_bubble = bubble_sort(arr);
     for (int i{}; i < res_bubble.size(); ++i){
         std::cout<<res_bubble[i]<<"\t";
+    }
+
+    std::vector<int> res_mergesort = merge_sort(arr);
+    for (int i{}; i < res_mergesort.size(); ++i){
+        std::cout<<res_mergesort[i]<<" ";
     }
     return 0;
 }
